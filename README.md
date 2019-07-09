@@ -1,4 +1,4 @@
-# Task Manager Application
+# Marjana's Task Manager Application
 
 This web application allows the user to create a Kaban Board style task list.
 
