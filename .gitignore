@@ -8,3 +8,6 @@ node_modules/
 
 # sass cache
 .sass-cache
+
+#WebStorm Files
+.idea/
