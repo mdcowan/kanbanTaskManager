@@ -1,1 +1,21 @@
-// main.scss
+// Utilities
+@import 'utils/vars';
+@import 'utils/mixins';
+@import 'utils/placeholders';
+
+html{
+  @include mq(small){
+    font-size: 16px;
+  }
+}
+div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+section{
+  @include mq(large) {
+    float: left;
+    width: calc(50%)
+  }
+}
