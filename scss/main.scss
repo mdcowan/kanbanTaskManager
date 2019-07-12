@@ -4,13 +4,10 @@
 @import 'utils/placeholders';
 
 // Base Styles
+@import 'base/reset';
 @import 'base/base';
 
-html{
-  @include mq(small){
-    font-size: 16px;
-  }
-}
+
 div{
   display: flex;
   flex-direction: row;

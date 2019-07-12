@@ -1,15 +1,7 @@
-/* SCSS VARIABLES
-==================================================
-================================================== */
-/* SCSS MIXINS
-==================================================
-================================================== */
-/* SCSS PLACEHOLDERS
-==================================================
-================================================== */
 /* CSS RESET
 ==================================================
 ================================================== */
+
 html, body, div, main, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, button, abbr, acronym, address, big, cite, code,
@@ -24,6 +16,7 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video,
 ::before, ::after {
+
   margin: 0;
   padding: 0;
   border: 0;
@@ -31,70 +24,42 @@ time, mark, audio, video,
   font: inherit;
   vertical-align: baseline;
   text-decoration: none;
-  box-sizing: border-box; }
+
+  box-sizing: border-box;
+
+}
 
 /* HTML5 - Older browser support
 ================================================== */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-  display: block; }
+  display: block;
+}
+
 
 /* BODY
 ================================================== */
-body {
-  line-height: 1; }
+body { line-height: 1; }
+
 
 /* LISTS - Clear bullets
 ================================================== */
-ol, ul {
-  list-style: none; }
+ol, ul { list-style: none; }
+
 
 /* QUOTES
 ================================================== */
-blockquote, q {
-  quotes: none; }
-
+blockquote, q { quotes: none; }
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
-  content: none; }
+  content: none;
+}
 
 /* TABLES
 ================================================== */
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0;
+}
 
-/* BASE LAYOUT
-==================================================
-================================================== */
-/*DEFAULTS ======================================= */
-html {
-  font-size: 62.5%; }
-
-body {
-  font: 1.4rem "Alegreya Sans", "Trebuchet MS", Helvetica, sans-serif;
-  color: #212121;
-  background: #FFFFFF; }
-
-/* TYPOGRAPHY ====================================== */
-h1, h2 {
-  padding: 1rem; }
-
-h1 {
-  font-size: 4rem;
-  color: #FFFFFF;
-  background-color: #00BCD4; }
-
-h2 {
-  font-size: 2.5rem; }
-
-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around; }
-
-@media (min-width: 800px) {
-  section {
-    float: left;
-    width: calc(50%); } }
