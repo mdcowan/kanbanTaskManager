@@ -3,6 +3,9 @@
 @import 'utils/mixins';
 @import 'utils/placeholders';
 
+// Base Styles
+@import 'base/base';
+
 html{
   @include mq(small){
     font-size: 16px;
