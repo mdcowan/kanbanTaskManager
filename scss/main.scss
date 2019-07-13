@@ -8,14 +8,4 @@
 @import 'base/base';
 
 
-div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-section{
-  @include mq(large) {
-    float: left;
-    width: calc(50%)
-  }
-}
+

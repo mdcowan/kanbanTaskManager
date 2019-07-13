@@ -7,6 +7,10 @@
 /* SCSS PLACEHOLDERS
 ==================================================
 ================================================== */
+.wrapper button {
+  border-radius: .4rem;
+  height: 2rem; }
+
 /* CSS RESET
 ==================================================
 ================================================== */
@@ -77,24 +81,90 @@ body {
   color: #212121;
   background: #FFFFFF; }
 
-/* TYPOGRAPHY ====================================== */
-h1, h2 {
-  padding: 1rem; }
+header {
+  background-color: #00BCD4; }
 
+/* TYPOGRAPHY ====================================== */
 h1 {
   font-size: 4rem;
   color: #FFFFFF;
-  background-color: #00BCD4; }
+  margin: 0 auto; }
+  @media (max-width: 830px) {
+    h1 {
+      padding: 1rem 2rem; } }
+  @media (min-width: 831px) and (max-width: 1040px) {
+    h1 {
+      padding: 1rem 4rem; } }
+  @media (min-width: 1040px) {
+    h1 {
+      padding: 1rem 8rem; } }
 
 h2 {
   font-size: 2.5rem; }
 
-div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around; }
+h3 {
+  font-weight: bold;
+  padding-bottom: .5rem; }
 
-@media (min-width: 800px) {
-  section {
-    float: left;
-    width: calc(50%); } }
+p {
+  line-height: 2rem; }
+
+a {
+  color: #0097A7;
+  text-decoration: underline; }
+
+.emptytext {
+  font-weight: lighter;
+  color: #757575; }
+
+/* BASE STRUCTURE ================================ */
+@media (max-width: 830px) {
+  h1, .wrapper {
+    max-width: 450px; } }
+
+@media (min-width: 831px) and (max-width: 1040px) {
+  h1, .wrapper {
+    max-width: 940px; } }
+
+@media (min-width: 1040px) {
+  h1, .wrapper {
+    max-width: 1200px; } }
+
+.wrapper {
+  display: flex; }
+  @media (max-width: 830px) {
+    .wrapper {
+      padding: 0 2rem;
+      margin: 2rem auto;
+      flex-direction: column;
+      justify-content: center; } }
+  @media (min-width: 831px) and (max-width: 1040px) {
+    .wrapper {
+      margin: 7.5rem auto;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 4rem; } }
+  @media (min-width: 1040px) {
+    .wrapper {
+      margin: 7.5rem auto;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 8rem; } }
+  .wrapper section {
+    margin: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr; }
+    .wrapper section .sectionheader {
+      display: grid;
+      grid-template-columns: 1fr 8rem;
+      grid-gap: 1rem;
+      grid-template-areas: "header button"; }
+    .wrapper section h2 {
+      grid-area: header;
+      grid-column: 1; }
+  .wrapper button {
+    grid-area: button; }
+  .wrapper li {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }

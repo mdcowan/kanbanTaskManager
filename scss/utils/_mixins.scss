@@ -1,14 +1,23 @@
 /* SCSS MIXINS
 ==================================================
 ================================================== */
+$break-small: 830px;
+$break-large: 1040px;
+
 @mixin mq($size){
   @if $size == small {
-    @media (min-width: 300px) {@content;}
+    @media (max-width: $break-small) {@content;}
   }
   @else if $size == medium {
-    @media (min-width: 600px) {@content;}
+    @media (min-width: $break-small + 1) and (max-width: $break-large) {@content;}
   }
   @else if $size == large {
-    @media (min-width: 800px) {@content;}
+    @media (min-width: $break-large) {@content;}
   }
+}
+
+@mixin med-or-lg-screen-wrapper{
+  margin: 7.5rem auto;
+  flex-direction: row;
+  justify-content: space-between;
 }

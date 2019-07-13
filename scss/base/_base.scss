@@ -13,17 +13,109 @@ body{
   background: $background-color;
 }
 
-/* TYPOGRAPHY ====================================== */
-h1, h2{
-  padding: 1rem;
+header{
+  background-color: $primary-color;
 }
 
+/* TYPOGRAPHY ====================================== */
 h1{
   font-size: 4rem;
   color: $header-text;
-  background-color: $primary-color;
+  margin: 0 auto;
+  @include mq(small){
+    padding: 1rem 2rem;
+  }
+  @include mq(medium){
+    padding: 1rem 4rem;
+  }
+  @include mq(large){
+    padding: 1rem 8rem;
+  }
 }
 
 h2{
   font-size: 2.5rem;
 }
+
+h3{
+  font-weight: bold;
+  padding-bottom: .5rem;
+}
+
+p{
+  line-height: 2rem;
+}
+
+a{
+  color: $dk-primary-color;
+  text-decoration: underline;
+}
+
+.emptytext{
+  font-weight: lighter;
+  color: $secondary-text;
+}
+/* BASE STRUCTURE ================================ */
+h1, .wrapper{
+  @include mq(small){
+    max-width: 450px;
+  }
+  @include mq(medium){
+    max-width: 940px;
+  }
+  @include mq(large){
+    max-width: 1200px;
+  }
+}
+
+.wrapper {
+  display: flex;
+
+  @include mq(small) {
+    padding: 0 2rem;
+    margin: 2rem auto;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @include mq(medium) {
+    @include med-or-lg-screen-wrapper;
+    padding: 0 4rem;
+  }
+  @include mq(large) {
+    @include med-or-lg-screen-wrapper;
+    padding: 0 8rem;
+  }
+
+  section{
+    margin: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .sectionheader{
+      display: grid;
+      grid-template-columns: 1fr 8rem;
+      grid-gap: 1rem;
+      grid-template-areas:
+              "header button";
+    }
+
+    h2{
+      grid-area: header;
+      grid-column: 1;
+    }
+
+  }
+
+  button{
+    @extend %button;
+    grid-area: button;
+  }
+
+  li{
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    box-shadow: 0px 0px .8rem .1rem $shadow-color;
+  }
+
+}
+
