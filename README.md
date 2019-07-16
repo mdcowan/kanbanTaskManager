@@ -1,23 +1,25 @@
-# DWS2 Kanban Board
+# Marjana's Task Manager Application
 
-Welcome to the starter repo for your Kanban board application 🚀!
+This web application allows the user to create a Kaban Board style task list.
 
-You'll want to customize this readme file a bit to contain information about the project, but for now here is what you need to know to get set up:
+## Features
 
-## Installation
+Core features include:
+- View of all lists and tasks
+- Allows the user to add a new task to a list
+- Validates all user input to ensure proper data is entered
+- Allows the user to customize at least one aspect of the UI, and save that customization
 
-Make sure you have the following:
+## Project Milestones
 
-- Node (v12)
-- NPM
+- [ ] Milestone 1:
+For the first milestone, the project’s development workflow will need to be implemented, the markup will need to be written, and the styling will need to be started for the responsive web application.
 
-From the root of this project run: `npm install`. This will pull in the dependencies needed for development.
+- [ ] Milestone 2:
+For the second milestone: adapt static HTML into a dynamic application that pulls data in from an API, establish functions for CRUD operations, and build out the form to handle the CRUD operations.
 
-## Usage
+- [ ] Milestone 3:
+For the third milestone: focus is on accessibility to ensure your application is accessible to assistive technologies, implement form validation, implement user customization, and connect the form actions to the API.
 
-- `npm start`: This command will start up a local web server, open your default browser, and begin watching scss files for changes.
-- `npm run build`: This command will only compile your scss files.
-
-## Things to know
-
-You can customize the structure of this project however you like. A base set of functionality has been provided to get you started. Make sure to familiarize yourself with what's going on in the `gulpfile.js`.
+- [ ] Milestone 4:
+For the final milestone: prepare the complete deliverable. At this stage some light animation will be implemented, tested across various browsers, and polish the code and design.
