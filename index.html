@@ -11,8 +11,13 @@
 <header>
     <h1>Task Manager</h1>
 </header>
-<div class="wrapper">
+<div id="listdisplay" class="wrapper">
 </div>
+<section>
+    <form>
+        
+    </form>
+</section>
 
 <template id="listTemplate">
     <section>
@@ -21,15 +26,16 @@
             <button>Add Task</button>
         </div>
         <ul>
-            <li></li>
         </ul>
     </section>
 </template>
 
 <template id="taskTemplate">
-    <h3 class="emptytext">Get Started!</h3>
-    <p class="emptytext">Click the "Add Task" button above to create your first task in this category.</p>
-    <datetime></datetime>
+    <li>
+        <h3>Get Started!</h3>
+        <p>Click the "Add Task" button above to create your first task in this category.</p>
+        <datetime></datetime>
+    </li>
 </template>
 
 <!--JavaScript-->
