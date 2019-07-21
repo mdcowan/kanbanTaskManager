@@ -18,7 +18,7 @@ class AssignPrototype{
             return AssignPrototype._instance;
         }
         else{
-            throw "Error: Singleton already exists."
+            throw "Error: Singleton already exists.";
         }
     }
 }
@@ -28,7 +28,7 @@ var apiURL = "https://triangular-cabbage.glitch.me/api/";
 var accessToken = "?accessToken=5b1064585f4ab8706d275f90";
 
 //variable to hold the DOM list display
-var listDisplay = document.querySelector('#listdisplay')
+var listDisplay = document.querySelector('#listdisplay');
 
 //** Use fetch to retrieve JSON data **\\
 
@@ -52,9 +52,11 @@ function createPage(listData){
     console.log(listData);
     listData.forEach(element => {
         createList(element);
-    })
-    let newTask = document.querySelectorAll('button');
-    newTask.forEach(button => button.addEventListener('click', addTask));
+    });
+    let newTaskButtons = document.querySelectorAll('button');
+    newTaskButtons.forEach(button => button.addEventListener('click', addTask));
+    let tasks = document.querySelectorAll('li');
+    tasks.forEach(task => task.addEventListener('click', viewTask));
 }
 
 //function to create the Lists in the DOM
@@ -79,7 +81,7 @@ function createList(data){
             cloneTask.querySelector('p').innerHTML = element.description;
             cloneTask.querySelector('datetime').innerHTML = element.dueDate;
             targetList.appendChild(cloneTask);
-        })
+        });
     }
     else{
         let cloneTask = document.importNode(taskTemplate.content, true);
@@ -118,7 +120,7 @@ function postTask(event) {
         }
         else {
             description = null;
-        };
+        }
         let dueDate;
         if(pageForm.querySelector('input[id=duedate]').value){
             dueDate = pageForm.querySelector('input[id=duedate]').value;
@@ -142,18 +144,38 @@ function postTask(event) {
         fetch(queryURL, myInit)
             .then(validateResponse) //run the function to validate the response
             .then(newRes => newRes.json()) //convert the response to JSON
-            .then(confirmPost)
             .then(getLists) //run the function to create the HTML for the list(s) and insert it on the DOM
             .catch(logError); //write out any error in the console
     }
+    else{
+        alert("Title is required!");
+    }
 }
 
-function confirmPost(data) {
-    console.log(data);
+// Submit Button Validation
+function validateForm(){
+    let pageForm = document.querySelector('form');
+    let fields = pageForm.querySelectorAll('.required');
+    let submit = pageForm.querySelector('button');
+    let valid = false;
+    for (let i=0; i <fields.length; i++){
+        if(fields[i].value){valid = true;}
+    }
+
+    //allow submit
+    if (valid === true){
+        submit.removeAttribute("class");
+    }
 }
 
 function addTask(event){
     //create the form
+    let formTitle = "Add Task";
+    let pageForm = createForm(formTitle);
+    pageForm.querySelector('button').id = event.target.id;
+}
+
+function createForm(formTitle){
     const formTemplate = document.querySelector('#formTemplate');
     let cloneForm = document.importNode(formTemplate.content, true);
     listDisplay.innerHTML = "";
@@ -161,22 +183,8 @@ function addTask(event){
 
     //variables to hold the new form
     let pageForm = document.querySelector('form');
-    let submit = pageForm.querySelector('button');
-    submit.id = event.target.id;
-
-    // Submit Button Validation
-    function validateForm(){
-        let fields = pageForm.querySelectorAll('.required');
-        let valid = true;
-        for (let i=0; i <fields.length; i++){
-            if(!fields[i].value){valid = false;}
-        }
-
-        //allow submit
-        if (valid === true){
-            submit.removeAttribute("class");
-        }
-    }
+    let title = pageForm.querySelector('h2');
+    title.innerHTML = formTitle;
 
     //Check if submissions are allowed
     let requiredFields = pageForm.querySelectorAll('.required');
@@ -184,9 +192,37 @@ function addTask(event){
         requiredFields[i].addEventListener('input', validateForm);
     }
 
+    let submit = pageForm.querySelector('#submit');
+
     //Form Submission
     submit.addEventListener('click', postTask);
+
+    //Form Cancel
+    let cancel = pageForm.querySelector('#cancel');
+    cancel.addEventListener('click', getLists);
+
+    return pageForm;
 }
 
+function viewTask(event){
+    if(event.target.id){
+        //Record the data from the task that was clicked
+        let task = event.target;
+        let list = task.parentElement.parentElement;
+        let formTitle = list.querySelector('h2').innerHTML;
+        let title = task.querySelector('h3').innerHTML;
+        let description = task.querySelector('p').innerHTML;
+        let dueDate = task.querySelector('datetime').innerHTML;
 
+        //create the form with populated data
+        let pageForm = createForm(formTitle);
+        pageForm.querySelector('button').remove();
+        pageForm.querySelector('p').innerHTML = "";
+        pageForm.querySelector('#cancel').innerHTML = "Close";
+        pageForm.querySelector('label').innerHTML = "Title";
+        pageForm.querySelector('input[id=title]').value = title;
+        pageForm.querySelector('input[id=description]').value = description;
+        pageForm.querySelector('input[id=duedate]').value = dueDate;
+    }
+}
 
