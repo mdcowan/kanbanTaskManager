@@ -12,10 +12,10 @@ Core features include:
 
 ## Project Milestones
 
-- [ ] Milestone 1:
+- [x] Milestone 1:
 For the first milestone, the project’s development workflow will need to be implemented, the markup will need to be written, and the styling will need to be started for the responsive web application.
 
-- [ ] Milestone 2:
+- [x] Milestone 2:
 For the second milestone: adapt static HTML into a dynamic application that pulls data in from an API, establish functions for CRUD operations, and build out the form to handle the CRUD operations.
 
 - [ ] Milestone 3:
