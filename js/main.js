@@ -1,5 +1,30 @@
+/*jshint esversion: 6 */
+
+window.addEventListener("load", function () {
+    console.log("page loaded");
+    let Cowan_Kanban = AssignPrototype.getInstance();
+});
+
+class AssignPrototype{
+    constructor() {
+        getLists();
+    }
+
+    static getInstance(){
+        //Is there an instance variable attached to the class?
+        //If so, don't create. If not, then it's ok to create.
+        if(!AssignPrototype._instance){
+            AssignPrototype._instance = new AssignPrototype();
+            return AssignPrototype._instance;
+        }
+        else{
+            throw "Error: Singleton already exists."
+        }
+    }
+}
+
 //variables to hold API URL info
-var apiURL = "https://mercurial-headphones.glitch.me/api/";
+var apiURL = "https://triangular-cabbage.glitch.me/api/";
 var accessToken = "?accessToken=5b1064585f4ab8706d275f90";
 
 //variable to hold the DOM list display
@@ -21,45 +46,24 @@ function logError(error){
     listDisplay.innerHTML = "<h2>Oops! Something went wrong!</h2>";
 }
 
+//function to create the List Page
 function createPage(listData){
+    listDisplay.innerHTML = "";
     console.log(listData);
     listData.forEach(element => {
-        console.log(element);
         createList(element);
     })
+    let newTask = document.querySelectorAll('button');
+    newTask.forEach(button => button.addEventListener('click', addTask));
 }
 
-//function to get API list data
-function getLists() {
-    let queryURL = apiURL + 'lists' + accessToken;
-    console.log(queryURL);
-    fetch(queryURL, {method: 'GET'})
-        .then(validateResponse) //run the function to validate the response
-        .then(newRes => newRes.json()) //convert the response to JSON
-        .then(createPage) //run the function to create the HTML for the list(s) and insert it on the DOM
-        .catch(logError); //write out any error in the console
-}
-
-//function to get API list data
-function postList(event) {
-
-    let queryURL = apiURL + 'lists' + accessToken;
-    let myInit = {method: 'POST',
-                    headers: new Headers(),
-                    body: JSON.stringify({title: event.newTitle})};
-    fetch(queryURL, myInit)
-        .then(validateResponse) //run the function to validate the response
-        .then(newRes => newRes.json()) //convert the response to JSON
-        .then(createList) //run the function to create the HTML for the list(s) and insert it on the DOM
-        .catch(logError); //write out any error in the console
-}
-
+//function to create the Lists in the DOM
 function createList(data){
-    console.log('Creating list: ' + data.title);
+    console.log('Creating listID: ' + data.id);
     const sectionTemplate = document.querySelector('#listTemplate');
     let cloneSection = document.importNode(sectionTemplate.content, true);
 
-    cloneSection.querySelector('section').id = data.id;
+    cloneSection.querySelector('button').id = data.id;
     cloneSection.querySelector('h2').innerHTML = data.title;
 
     let targetList = cloneSection.querySelector('ul');
@@ -67,9 +71,8 @@ function createList(data){
     if(data.items){
 
         data.items.forEach(element =>{
-            console.log('Creating task: ' + element.title);
+            console.log('Creating taskID: ' + element.id);
             let cloneTask = document.importNode(taskTemplate.content, true);
-            console.log(cloneTask);
 
             cloneTask.querySelector('li').id = element.listId + '_' + element.id;
             cloneTask.querySelector('h3').innerHTML = element.title;
@@ -87,4 +90,103 @@ function createList(data){
     listDisplay.appendChild(cloneSection);
 }
 
-getLists();
+//function to get API list data
+function getLists() {
+    let queryURL = apiURL + 'lists' + accessToken;
+    console.log(queryURL);
+    fetch(queryURL, {method: 'GET'})
+        .then(validateResponse) //run the function to validate the response
+        .then(newRes => newRes.json()) //convert the response to JSON
+        .then(createPage) //run the function to create the HTML for the list(s) and insert it on the DOM
+        .catch(logError); //write out any error in the console
+}
+
+//function to post a new task
+function postTask(event) {
+    event.preventDefault();
+    var target = event.target;
+    var disable = target.classList.contains('disabled');
+
+    if(disable===false){
+        let pageForm = document.querySelector('form');
+
+        let title = pageForm.querySelector('input[id=title]').value;
+        let listId = event.target.id;
+        let description;
+        if (pageForm.querySelector('input[id=description]').value){
+            description = pageForm.querySelector('input[id=description]').value;
+        }
+        else {
+            description = null;
+        };
+        let dueDate;
+        if(pageForm.querySelector('input[id=duedate]').value){
+            dueDate = pageForm.querySelector('input[id=duedate]').value;
+        }
+        else{
+            dueDate = null;
+        }
+        let newTask = {
+            title: title,
+            listId: listId,
+            description: description,
+            dueDate: dueDate
+        };
+
+        let queryURL = apiURL + 'items' + accessToken;
+        let myInit = {
+            method: 'POST',
+            body: JSON.stringify(newTask),
+            headers: {'content-type': 'application/json'}
+        };
+        fetch(queryURL, myInit)
+            .then(validateResponse) //run the function to validate the response
+            .then(newRes => newRes.json()) //convert the response to JSON
+            .then(confirmPost)
+            .then(getLists) //run the function to create the HTML for the list(s) and insert it on the DOM
+            .catch(logError); //write out any error in the console
+    }
+}
+
+function confirmPost(data) {
+    console.log(data);
+}
+
+function addTask(event){
+    //create the form
+    const formTemplate = document.querySelector('#formTemplate');
+    let cloneForm = document.importNode(formTemplate.content, true);
+    listDisplay.innerHTML = "";
+    listDisplay.appendChild(cloneForm);
+
+    //variables to hold the new form
+    let pageForm = document.querySelector('form');
+    let submit = pageForm.querySelector('button');
+    submit.id = event.target.id;
+
+    // Submit Button Validation
+    function validateForm(){
+        let fields = pageForm.querySelectorAll('.required');
+        let valid = true;
+        for (let i=0; i <fields.length; i++){
+            if(!fields[i].value){valid = false;}
+        }
+
+        //allow submit
+        if (valid === true){
+            submit.removeAttribute("class");
+        }
+    }
+
+    //Check if submissions are allowed
+    let requiredFields = pageForm.querySelectorAll('.required');
+    for (let i=0; i <requiredFields.length; i++){
+        requiredFields[i].addEventListener('input', validateForm);
+    }
+
+    //Form Submission
+    submit.addEventListener('click', postTask);
+}
+
+
+
