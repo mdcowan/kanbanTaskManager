@@ -95,20 +95,11 @@ h1, .wrapper{
       display: grid;
       grid-template-columns: 1fr 8rem;
       grid-gap: 1rem;
-      grid-template-areas:
-              "header button";
     }
-
-    h2{
-      grid-area: header;
-      grid-column: 1;
-    }
-
   }
 
   button{
     @extend %button;
-    grid-area: button;
   }
 
   li{
