@@ -48,8 +48,7 @@ class AssignPrototype{
             console.log('Creating listID: ' + data.id);
             const sectionTemplate = document.querySelector('#listTemplate');
             let cloneSection = document.importNode(sectionTemplate.content, true);
-
-            cloneSection.querySelector('button').id = data.id;
+            cloneSection.querySelector('section').id = data.id;
             cloneSection.querySelector('h2').innerHTML = data.title;
 
             let targetList = cloneSection.querySelector('ul');
@@ -79,7 +78,6 @@ class AssignPrototype{
         //function to get API list data
         function getLists() {
             let queryURL = apiURL + 'lists' + accessToken;
-            console.log(queryURL);
             fetch(queryURL, {method: 'GET'})
                 .then(validateResponse) //run the function to validate the response
                 .then(newRes => newRes.json()) //convert the response to JSON
@@ -97,7 +95,7 @@ class AssignPrototype{
                 let pageForm = document.querySelector('form');
 
                 let title = pageForm.querySelector('input[id=title]').value;
-                let listId = event.target.id;
+                let listId = target.parentElement.id;
                 let description;
                 if (pageForm.querySelector('input[id=description]').value){
                     description = pageForm.querySelector('input[id=description]').value;
@@ -118,6 +116,7 @@ class AssignPrototype{
                     description: description,
                     dueDate: dueDate
                 };
+                console.log(newTask);
 
                 let queryURL = apiURL + 'items' + accessToken;
                 let myInit = {
@@ -153,13 +152,17 @@ class AssignPrototype{
         }
 
         function addTask(event){
+            let listID = event.target.parentElement.parentElement.id;
             //create the form
             let formTitle = "Add Task";
-            let pageForm = createForm(formTitle);
-            pageForm.querySelector('button').id = event.target.id;
+            let pageForm = createForm(formTitle, listID);
+            let submit = pageForm.querySelector('#submit');
+
+            //Form Submission
+            submit.addEventListener('click', postTask);
         }
 
-        function createForm(formTitle){
+        function createForm(formTitle, listID){
             const formTemplate = document.querySelector('#formTemplate');
             let cloneForm = document.importNode(formTemplate.content, true);
             listDisplay.innerHTML = "";
@@ -167,6 +170,7 @@ class AssignPrototype{
 
             //variables to hold the new form
             let pageForm = document.querySelector('form');
+            pageForm.id = listID;
             let title = pageForm.querySelector('h2');
             title.innerHTML = formTitle;
 
@@ -176,16 +180,16 @@ class AssignPrototype{
                 requiredFields[i].addEventListener('input', validateForm);
             }
 
-            let submit = pageForm.querySelector('#submit');
-
-            //Form Submission
-            submit.addEventListener('click', postTask);
-
             //Form Cancel
             let cancel = pageForm.querySelector('#cancel');
             cancel.addEventListener('click', getLists);
 
             return pageForm;
+        }
+
+        //function to edit a task
+        function updateTask(){
+            
         }
 
         function viewTask(event){
@@ -197,10 +201,11 @@ class AssignPrototype{
             let title = task.querySelector('h3').innerHTML;
             let description = task.querySelector('p').innerHTML;
             let dueDate = task.querySelector('time').innerHTML;
+            let listID = list.id;
 
             //create the form with populated data
-            let pageForm = createForm(formTitle);
-            pageForm.querySelector('button').remove();
+            let pageForm = createForm(formTitle, listID);
+            pageForm.querySelector('button').innerHTML = "Update";
             pageForm.querySelector('p').innerHTML = "";
             pageForm.querySelector('#cancel').innerHTML = "Close";
             pageForm.querySelector('label').innerHTML = "Title";
