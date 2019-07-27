@@ -53,13 +53,15 @@ class AssignPrototype{
 
             let targetList = cloneSection.querySelector('ul');
             const taskTemplate = document.querySelector('#taskTemplate');
+
+            //create all of the list items
             if(data.items){
 
                 data.items.forEach(element =>{
                     console.log('Creating taskID: ' + element.id);
                     let cloneTask = document.importNode(taskTemplate.content, true);
 
-                    cloneTask.querySelector('li').id = element.listId + '_' + element.id;
+                    cloneTask.querySelector('li').id = element.id;
                     cloneTask.querySelector('h3').innerHTML = element.title;
                     cloneTask.querySelector('p').innerHTML = element.description;
                     cloneTask.querySelector('time').innerHTML = element.dueDate;
@@ -86,15 +88,15 @@ class AssignPrototype{
         }
 
         //function to post a new task
-        function postTask(event) {
+        function postPutTask(event) {
             event.preventDefault();
             var target = event.target;
+            let pageForm = document.querySelector('form');
+            let required = pageForm.querySelector('#title');
             var disable = target.classList.contains('disabled');
 
             if(disable===false){
-                let pageForm = document.querySelector('form');
-
-                let title = pageForm.querySelector('input[id=title]').value;
+                let title = pageForm.querySelector('input[name=title]').value;
                 let listId = target.parentElement.id;
                 let description;
                 if (pageForm.querySelector('input[id=description]').value){
@@ -110,56 +112,87 @@ class AssignPrototype{
                 else{
                     dueDate = null;
                 }
-                let newTask = {
-                    title: title,
-                    listId: listId,
-                    description: description,
-                    dueDate: dueDate
-                };
+
+                let taskID = target.parentElement.querySelector('input[name=title]').id;
+                console.log("TaskID: "+taskID);
+
+                let newTask;
+                let queryURL;
+                let myInit;
+
+                if (!taskID === NaN){
+                    newTask = {
+                        title: title,
+                        description: description,
+                        dueDate: dueDate
+                    };
+
+                    queryURL = apiURL + 'items/'+ taskID + accessToken;
+                    myInit = {
+                        method: 'PUT',
+                        body: JSON.stringify(newTask),
+                        headers: {'content-type': 'application/json'}
+                    };
+                }
+                else{
+                    newTask = {
+                        title: title,
+                        listId: listId,
+                        description: description,
+                        dueDate: dueDate
+                    };
+
+                    queryURL = apiURL + 'items' + accessToken;
+                    myInit = {
+                        method: 'POST',
+                        body: JSON.stringify(newTask),
+                        headers: {'content-type': 'application/json'}
+                    };
+                }
+
                 console.log(newTask);
 
-                let queryURL = apiURL + 'items' + accessToken;
-                let myInit = {
-                    method: 'POST',
-                    body: JSON.stringify(newTask),
-                    headers: {'content-type': 'application/json'}
-                };
+
                 fetch(queryURL, myInit)
                     .then(validateResponse) //run the function to validate the response
                     .then(newRes => newRes.json()) //convert the response to JSON
                     .then(getLists) //run the function to create the HTML for the list(s) and insert it on the DOM
                     .catch(logError); //write out any error in the console
             }
-            else{
-                alert("Title is required!");
-            }
         }
 
         // Submit Button Validation
         function validateForm(){
             let pageForm = document.querySelector('form');
-            let fields = pageForm.querySelectorAll('.required');
+            let required = pageForm.querySelector('input[name=title]');
             let submit = pageForm.querySelector('button');
-            let valid = false;
-            for (let i=0; i <fields.length; i++){
-                if(fields[i].value){valid = true;}
-            }
+
+            console.log(pageForm);
+            console.log(required);
 
             //allow submit
-            if (valid === true){
+            let alertText = pageForm.parentElement.querySelector('p');
+            if (required.validity.valid === true){
                 submit.removeAttribute("class");
+                alertText.innerHTML = "";
+                if(alertText.classList){
+                    alertText.removeAttribute("class");
+                }
             }
+            else{
+                console.log(alertText);
+                alertText.classList.add("alert");
+                alertText.innerHTML = "Title is a required field. Please update";
+            }
+
+            return required.validity;
         }
 
         function addTask(event){
             let listID = event.target.parentElement.parentElement.id;
             //create the form
             let formTitle = "Add Task";
-            let pageForm = createForm(formTitle, listID);
-            let submit = pageForm.querySelector('#submit');
-
-            //Form Submission
-            submit.addEventListener('click', postTask);
+            createForm(formTitle, listID);
         }
 
         function createForm(formTitle, listID){
@@ -175,10 +208,12 @@ class AssignPrototype{
             title.innerHTML = formTitle;
 
             //Check if submissions are allowed
-            let requiredFields = pageForm.querySelectorAll('.required');
-            for (let i=0; i <requiredFields.length; i++){
-                requiredFields[i].addEventListener('input', validateForm);
-            }
+            let requiredField = pageForm.querySelector('#title');
+            requiredField.addEventListener('blur', validateForm);
+
+            //Form Submission
+            let submit = pageForm.querySelector('#submit');
+            submit.addEventListener('click', postPutTask);
 
             //Form Cancel
             let cancel = pageForm.querySelector('#cancel');
@@ -187,15 +222,11 @@ class AssignPrototype{
             return pageForm;
         }
 
-        //function to edit a task
-        function updateTask(){
-            
-        }
-
         function viewTask(event){
 
             //Record the data from the task that was clicked
             let task = event.currentTarget;
+            let taskID = task.id;
             let list = task.parentElement.parentElement;
             let formTitle = list.querySelector('h2').innerHTML;
             let title = task.querySelector('h3').innerHTML;
@@ -209,7 +240,9 @@ class AssignPrototype{
             pageForm.querySelector('p').innerHTML = "";
             pageForm.querySelector('#cancel').innerHTML = "Close";
             pageForm.querySelector('label').innerHTML = "Title";
-            pageForm.querySelector('input[id=title]').value = title;
+            let taskTitle = pageForm.querySelector('input[id=title]');
+            taskTitle.value = title;
+            taskTitle.id = taskID;
             pageForm.querySelector('input[id=description]').value = description;
             pageForm.querySelector('input[id=duedate]').value = dueDate;
         }

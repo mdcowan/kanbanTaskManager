@@ -167,4 +167,16 @@ a {
 ==================================================
 ================================================== */
 form input, form textarea {
-  background-color: #E8E8E8; }
+  box-shadow: inset 0 0 8px #E8E8E8; }
+
+form input:valid {
+  border: none; }
+
+form input:invalid {
+  border: 0.2rem solid #FFEB3B; }
+
+form input:required {
+  border: 0.2rem solid #00BCD4; }
+
+.alert {
+  color: #0097A7; }
