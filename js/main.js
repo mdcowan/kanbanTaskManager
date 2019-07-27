@@ -189,25 +189,24 @@ class AssignPrototype{
         }
 
         function viewTask(event){
-            if(event.target.id){
-                //Record the data from the task that was clicked
-                let task = event.target;
-                let list = task.parentElement.parentElement;
-                let formTitle = list.querySelector('h2').innerHTML;
-                let title = task.querySelector('h3').innerHTML;
-                let description = task.querySelector('p').innerHTML;
-                let dueDate = task.querySelector('time').innerHTML;
 
-                //create the form with populated data
-                let pageForm = createForm(formTitle);
-                pageForm.querySelector('button').remove();
-                pageForm.querySelector('p').innerHTML = "";
-                pageForm.querySelector('#cancel').innerHTML = "Close";
-                pageForm.querySelector('label').innerHTML = "Title";
-                pageForm.querySelector('input[id=title]').value = title;
-                pageForm.querySelector('input[id=description]').value = description;
-                pageForm.querySelector('input[id=duedate]').value = dueDate;
-            }
+            //Record the data from the task that was clicked
+            let task = event.currentTarget;
+            let list = task.parentElement.parentElement;
+            let formTitle = list.querySelector('h2').innerHTML;
+            let title = task.querySelector('h3').innerHTML;
+            let description = task.querySelector('p').innerHTML;
+            let dueDate = task.querySelector('time').innerHTML;
+
+            //create the form with populated data
+            let pageForm = createForm(formTitle);
+            pageForm.querySelector('button').remove();
+            pageForm.querySelector('p').innerHTML = "";
+            pageForm.querySelector('#cancel').innerHTML = "Close";
+            pageForm.querySelector('label').innerHTML = "Title";
+            pageForm.querySelector('input[id=title]').value = title;
+            pageForm.querySelector('input[id=description]').value = description;
+            pageForm.querySelector('input[id=duedate]').value = dueDate;
         }
 
         getLists();
