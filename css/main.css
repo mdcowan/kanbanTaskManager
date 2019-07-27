@@ -87,7 +87,7 @@ header {
 /* TYPOGRAPHY ====================================== */
 h1 {
   font-size: 4rem;
-  color: #FFFFFF;
+  color: #212121;
   margin: 0 auto; }
   @media (max-width: 830px) {
     h1 {
@@ -163,5 +163,8 @@ a {
     padding: 1rem 1.5rem;
     box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }
 
+/* FORM LAYOUT
+==================================================
+================================================== */
 form input, form textarea {
   background-color: #E8E8E8; }
