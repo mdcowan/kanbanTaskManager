@@ -15,7 +15,6 @@ class AssignPrototype{
         var listDisplay = document.querySelector('#listdisplay');
 
         //** Use fetch to retrieve JSON data **\\
-
         //function to validate the API response
         function validateResponse(response) {
             if (!response.ok) {
@@ -33,7 +32,6 @@ class AssignPrototype{
         //function to create the List Page
         function createPage(listData){
             listDisplay.innerHTML = "";
-            console.log(listData);
             listData.forEach(element => {
                 createList(element);
             });
@@ -45,7 +43,6 @@ class AssignPrototype{
 
         //function to create the Lists in the DOM
         function createList(data){
-            console.log('Creating listID: ' + data.id);
             const sectionTemplate = document.querySelector('#listTemplate');
             let cloneSection = document.importNode(sectionTemplate.content, true);
             cloneSection.querySelector('section').id = data.id;
@@ -58,7 +55,6 @@ class AssignPrototype{
             if(data.items){
 
                 data.items.forEach(element =>{
-                    console.log('Creating taskID: ' + element.id);
                     let cloneTask = document.importNode(taskTemplate.content, true);
 
                     cloneTask.querySelector('li').id = element.id;
@@ -113,14 +109,15 @@ class AssignPrototype{
                     dueDate = null;
                 }
 
-                let taskID = target.parentElement.querySelector('input[name=title]').id;
-                console.log("TaskID: "+taskID);
+                let taskID = target.parentElement.querySelector('h2').id;
+                console.log(target.parentElement.querySelector('h2'));
+                console.log(taskID);
 
                 let newTask;
                 let queryURL;
                 let myInit;
 
-                if (!taskID === NaN){
+                if (taskID){
                     newTask = {
                         title: title,
                         description: description,
@@ -150,7 +147,6 @@ class AssignPrototype{
                     };
                 }
 
-                console.log(newTask);
 
 
                 fetch(queryURL, myInit)
@@ -167,9 +163,6 @@ class AssignPrototype{
             let required = pageForm.querySelector('input[name=title]');
             let submit = pageForm.querySelector('button');
 
-            console.log(pageForm);
-            console.log(required);
-
             //allow submit
             let alertText = pageForm.parentElement.querySelector('p');
             if (required.validity.valid === true){
@@ -180,7 +173,6 @@ class AssignPrototype{
                 }
             }
             else{
-                console.log(alertText);
                 alertText.classList.add("alert");
                 alertText.innerHTML = "Title is a required field. Please update";
             }
@@ -188,6 +180,7 @@ class AssignPrototype{
             return required.validity;
         }
 
+        //add task button event handler
         function addTask(event){
             let listID = event.target.parentElement.parentElement.id;
             //create the form
@@ -195,6 +188,7 @@ class AssignPrototype{
             createForm(formTitle, listID);
         }
 
+        //function to create the form to add/view task
         function createForm(formTitle, listID){
             const formTemplate = document.querySelector('#formTemplate');
             let cloneForm = document.importNode(formTemplate.content, true);
@@ -222,6 +216,7 @@ class AssignPrototype{
             return pageForm;
         }
 
+        //view task click event handler
         function viewTask(event){
 
             //Record the data from the task that was clicked
@@ -236,15 +231,14 @@ class AssignPrototype{
 
             //create the form with populated data
             let pageForm = createForm(formTitle, listID);
-            pageForm.querySelector('button').innerHTML = "Update";
+            pageForm.querySelector('h2').id = taskID;
             pageForm.querySelector('p').innerHTML = "";
             pageForm.querySelector('#cancel').innerHTML = "Close";
             pageForm.querySelector('label').innerHTML = "Title";
-            let taskTitle = pageForm.querySelector('input[id=title]');
-            taskTitle.value = title;
-            taskTitle.id = taskID;
+            pageForm.querySelector('input[id=title]').value = title;
             pageForm.querySelector('input[id=description]').value = description;
             pageForm.querySelector('input[id=duedate]').value = dueDate;
+            pageForm.querySelector('button').innerHTML = "Update";
         }
 
         getLists();
