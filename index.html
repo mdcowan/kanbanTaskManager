@@ -11,15 +11,24 @@
 <body>
 <header>
     <h1>Task Manager</h1>
+    <button></button>
 </header>
 <div id="listdisplay" class="wrapper" role="main">
 </div>
+<aside id="themechange">
+    <p class="modal">
+        Choose you desired theme color.
+        <button id="custom1">1</button>
+        <button id="custom2">2</button>
+        <button id="default">3</button>
+    </p>
+</aside>
 
 <template id="listTemplate">
     <section>
         <div class="sectionheader">
             <h2></h2>
-            <button>Add Task</button>
+            <button class="addTask">Add Task</button>
         </div>
         <ul>
         </ul>
@@ -57,5 +66,6 @@
 
 <!--JavaScript-->
 <script src="js/main.js"></script>
+<script src="js/customization.js"></script>
 </body>
 </html>

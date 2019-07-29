@@ -1,7 +1,7 @@
 /* MODAL LAYOUT
 ==================================================
 ================================================== */
-aside{
+#themechange{
   display:none;
   position:fixed;
   z-index: 1;
@@ -17,8 +17,74 @@ aside{
 .modal{
   background-color: $background-color;
   margin: auto;
-  padding: 20rem;
+  padding: 4rem 2rem;
   border: 1px solid $primary-color;
   width: 50%;
+  button{
+    padding: 1rem;
+    margin: 1rem;
+  }
+}
+
+#custom1{
+  background-color: $primary-color-custom1;
+}
+#custom2{
+  background-color: $primary-color-custom2;
+}
+#default {
+  background-color: $primary-color;
+}
+
+/* CUSTOMIZATION LAYOUT
+==================================================
+================================================== */
+
+.custom1{
+  header{
+    background-color: $primary-color-custom1;
+    button{
+      background-color: $dk-primary-color-custom1;
+    }
+  }
+  a{
+    color: $dk-primary-color-custom1;
+  }
+  form{
+    input:invalid{
+      border: .2rem solid $accent-color-custom1;
+    }
+
+    input:required{
+      border: .2rem solid $primary-color-custom1;
+    }
+  }
+  .alert{
+    color: $dk-primary-color-custom1;
+  }
+}
+
+.custom2{
+  header{
+    background-color: $primary-color-custom2;
+    button{
+      background-color: $dk-primary-color-custom2;
+    }
+  }
+  a{
+    color: $dk-primary-color-custom2;
+  }
+  form{
+    input:invalid{
+      border: .2rem solid $accent-color-custom2;
+    }
+
+    input:required{
+      border: .2rem solid $primary-color-custom2;
+    }
+  }
+  .alert{
+    color: $dk-primary-color-custom2;
+  }
 }
 

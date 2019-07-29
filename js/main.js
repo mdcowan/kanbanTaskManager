@@ -12,7 +12,7 @@ class AssignPrototype{
         var accessToken = "?accessToken=5b1064585f4ab8706d275f90";
 
         //variable to hold the DOM list display
-        var listDisplay = document.querySelector('#listdisplay');
+        const listDisplay = document.querySelector('#listdisplay');
 
         //** Use fetch to retrieve JSON data **\\
         //function to validate the API response
@@ -31,11 +31,12 @@ class AssignPrototype{
 
         //function to create the List Page
         function createPage(listData){
+            loadCustomColor();
             listDisplay.innerHTML = "";
             listData.forEach(element => {
                 createList(element);
             });
-            let newTaskButtons = document.querySelectorAll('button');
+            let newTaskButtons = document.querySelectorAll('.addTask');
             newTaskButtons.forEach(button => button.addEventListener('click', addTask));
             let tasks = document.querySelectorAll('li');
             tasks.forEach(task => task.addEventListener('click', viewTask));
@@ -110,8 +111,6 @@ class AssignPrototype{
                 }
 
                 let taskID = target.parentElement.querySelector('h2').id;
-                console.log(target.parentElement.querySelector('h2'));
-                console.log(taskID);
 
                 let newTask;
                 let queryURL;

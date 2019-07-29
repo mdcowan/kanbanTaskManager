@@ -1,4 +1,5 @@
 //**Customization of page
+const page = document.querySelector('body');
 const themechange = page.querySelector("#themechange");
 const btn = page.querySelector('header > button');
 const theme1Btn = page.querySelector('#custom1');
@@ -21,6 +22,14 @@ function closeModal(event){
 }
 
 function changeToTheme1(){
+    if(localStorage.getItem('customColor')){
+        localStorage.removeItem('customColor');
+    }
+    let data = {
+        colorClass: "1"
+    };
+    localStorage.setItem('customColor', JSON.stringify(data));
+
     page.classList.add('custom1');
     if(page.classList.contains('custom2')){
         page.classList.remove('custom2');
@@ -29,6 +38,14 @@ function changeToTheme1(){
 }
 
 function changeToTheme2(){
+    if(localStorage.getItem('customColor')){
+        localStorage.removeItem('customColor');
+    }
+    let data = {
+        colorClass: "2"
+    };
+    localStorage.setItem('customColor', JSON.stringify(data));
+
     page.classList.add('custom2');
     if(page.classList.contains('custom1')){
         page.classList.remove('custom1');
@@ -37,6 +54,9 @@ function changeToTheme2(){
 }
 
 function changeDefault(){
+    if(localStorage.getItem('customColor')){
+        localStorage.removeItem('customColor');
+    }
     if(page.classList.contains('custom1')){
         page.classList.remove('custom1');
     }
@@ -48,3 +68,19 @@ function changeDefault(){
 
 btn.addEventListener('click', openModal);
 window.addEventListener('click', closeModal);
+
+function loadCustomColor(){
+    let customColor = JSON.parse(localStorage.getItem('customColor'));
+    console.log(customColor);
+    if(customColor){
+        switch(customColor.colorClass){
+            case '1':
+                changeToTheme1();
+                break;
+            case '2':
+                changeToTheme2();
+                break;
+        }
+    }
+}
+
