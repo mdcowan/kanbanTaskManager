@@ -11,15 +11,24 @@
 <body>
 <header>
     <h1>Task Manager</h1>
+    <button></button>
 </header>
-<div id="listdisplay" class="wrapper">
+<div id="listdisplay" class="wrapper" role="main">
 </div>
+<aside id="themechange">
+    <p class="modal">
+        Choose you desired theme color.
+        <button id="custom1">1</button>
+        <button id="custom2">2</button>
+        <button id="default">3</button>
+    </p>
+</aside>
 
 <template id="listTemplate">
     <section>
         <div class="sectionheader">
             <h2></h2>
-            <button>Add Task</button>
+            <button class="addTask">Add Task</button>
         </div>
         <ul>
         </ul>
@@ -30,17 +39,17 @@
     <li>
         <h3>Get Started!</h3>
         <p>Click the "Add Task" button above to create your first task in this category.</p>
-        <datetime></datetime>
+        <time></time>
     </li>
 </template>
 
 <template id="formTemplate">
-    <form method="post" action="">
+    <form method="post" action="" role="form">
         <h2>Add Task</h2>
         <p>Add your new task below and click submit.</p>
         <p>
             <label for="title">Title (required)</label>
-            <input type="text" name="title" id="title" autofocus class="required" placeholder="Title" />
+            <input type="text" name="title" id="title" autofocus placeholder="Title" required />
         </p>
         <p>
             <label for="description">Description</label>
@@ -57,5 +66,6 @@
 
 <!--JavaScript-->
 <script src="js/main.js"></script>
+<script src="js/customization.js"></script>
 </body>
 </html>

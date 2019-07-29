@@ -82,13 +82,26 @@ body {
   background: #FFFFFF; }
 
 header {
-  background-color: #00BCD4; }
+  background-color: #00BCD4;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: space-around; }
+  header button {
+    background-color: #0097A7;
+    background-image: url("/images/drop.png");
+    background-repeat: no-repeat;
+    background-size: 1.8rem 2rem;
+    background-position: center;
+    padding: 1.8rem;
+    margin: 0;
+    border-radius: 50%; }
 
 /* TYPOGRAPHY ====================================== */
 h1 {
   font-size: 4rem;
-  color: #FFFFFF;
-  margin: 0 auto; }
+  color: #212121;
+  margin: 0; }
   @media (max-width: 830px) {
     h1 {
       padding: 1rem 2rem; } }
@@ -163,5 +176,90 @@ a {
     padding: 1rem 1.5rem;
     box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }
 
+/* FORM LAYOUT
+==================================================
+================================================== */
 form input, form textarea {
-  background-color: #E8E8E8; }
+  box-shadow: inset 0 0 8px #E8E8E8; }
+
+form input:valid {
+  border: none; }
+
+form input:invalid {
+  border: 0.2rem solid #FFEB3B; }
+
+form input:required {
+  border: 0.2rem solid #00BCD4; }
+
+.alert {
+  color: #0097A7; }
+
+/* MODAL LAYOUT
+==================================================
+================================================== */
+#themechange {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 10rem;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 188, 212, 0.5); }
+
+.modal {
+  background-color: #FFFFFF;
+  margin: auto;
+  padding: 4rem 2rem;
+  border: 1px solid #00BCD4;
+  width: 50%; }
+  .modal button {
+    padding: 1rem;
+    margin: 1rem; }
+
+#custom1 {
+  background-color: #F44336; }
+
+#custom2 {
+  background-color: #9C27B0; }
+
+#default {
+  background-color: #00BCD4; }
+
+/* CUSTOMIZATION LAYOUT
+==================================================
+================================================== */
+.custom1 header {
+  background-color: #F44336; }
+  .custom1 header button {
+    background-color: #D32F2F; }
+
+.custom1 a {
+  color: #D32F2F; }
+
+.custom1 form input:invalid {
+  border: 0.2rem solid #448AFF; }
+
+.custom1 form input:required {
+  border: 0.2rem solid #F44336; }
+
+.custom1 .alert {
+  color: #D32F2F; }
+
+.custom2 header {
+  background-color: #9C27B0; }
+  .custom2 header button {
+    background-color: #7B1FA2; }
+
+.custom2 a {
+  color: #7B1FA2; }
+
+.custom2 form input:invalid {
+  border: 0.2rem solid #FF5722; }
+
+.custom2 form input:required {
+  border: 0.2rem solid #9C27B0; }
+
+.custom2 .alert {
+  color: #7B1FA2; }
