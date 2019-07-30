@@ -28,6 +28,11 @@ header{
     padding: 1.8rem;
     margin: 0;
     border-radius: 50%;
+    height: 1.8rem;
+    width: 1.8rem;
+    text-indent: -9999px;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 
