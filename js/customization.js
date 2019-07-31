@@ -6,9 +6,9 @@ const theme1Btn = page.querySelector('#customtheme1');
 const theme2Btn = page.querySelector('#customtheme2');
 const theme3Btn = page.querySelector('#default');
 
-theme1Btn.addEventListener('click', themeChange);
-theme2Btn.addEventListener('click', themeChange);
-theme3Btn.addEventListener('click', themeChange);
+theme1Btn.addEventListener('click', getTheme);
+theme2Btn.addEventListener('click', getTheme);
+theme3Btn.addEventListener('click', getTheme);
 
 // function to open the modal window
 function openModal(){
@@ -22,12 +22,17 @@ function closeModal(event){
     }
 }
 
-function themeChange(e){
+function getTheme(event){
+    let choice = event.target.id;
+    themeChange(choice);
+}
+
+function themeChange(choice){
     if(localStorage.getItem('customColor')){
         localStorage.removeItem('customColor');
     }
     let data;
-    let choice = e.target.id;
+
 
     switch (choice){
         case "customtheme1":
@@ -70,15 +75,13 @@ window.addEventListener('click', closeModal);
 
 function loadCustomColor(){
     let customColor = JSON.parse(localStorage.getItem('customColor'));
-    let event = new MouseEvent('click');
-    console.log(event);
     if(customColor){
         switch(customColor.colorClass){
             case '1':
-                theme1Btn.dispatchEvent(event);
+                themeChange("customtheme1");
                 break;
             case '2':
-                theme2Btn.dispatchEvent(event);
+                themeChange("customtheme2");
                 break;
         }
     }
