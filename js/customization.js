@@ -36,9 +36,8 @@ function themeChange(choice){
 
     switch (choice){
         case "customtheme1":
-            console.log(choice);
             data = {
-                colorClass: "1"
+                colorClass: "customtheme1"
             };
             page.classList.add('custom1');
             if(page.classList.contains('custom2')){
@@ -46,9 +45,8 @@ function themeChange(choice){
             }
             break;
         case "customtheme2":
-            console.log(choice);
             data = {
-                colorClass: "2"
+                colorClass: "customtheme2"
             };
             page.classList.add('custom2');
             if(page.classList.contains('custom1')){
@@ -56,7 +54,6 @@ function themeChange(choice){
             }
             break;
         case "default":
-            console.log(choice);
             if(page.classList.contains('custom1')){
                 page.classList.remove('custom1');
             }
@@ -76,14 +73,7 @@ window.addEventListener('click', closeModal);
 function loadCustomColor(){
     let customColor = JSON.parse(localStorage.getItem('customColor'));
     if(customColor){
-        switch(customColor.colorClass){
-            case '1':
-                themeChange("customtheme1");
-                break;
-            case '2':
-                themeChange("customtheme2");
-                break;
-        }
+        themeChange(customColor.colorClass);
     }
 }
 

@@ -11,7 +11,6 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0,188,212, 0.5);
-
 }
 
 .modal{
@@ -20,20 +19,22 @@
   padding: 4rem 2rem;
   border: 1px solid $primary-color;
   width: 50%;
-  button{
-    padding: 1rem;
-    margin: 1rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #customtheme1{
   background-color: $primary-color-custom1;
+  @include modalButton;
 }
 #customtheme2{
   background-color: $primary-color-custom2;
+  @include modalButton;
 }
 #default {
   background-color: $primary-color;
+  @include modalButton;
 }
 
 /* CUSTOMIZATION LAYOUT
