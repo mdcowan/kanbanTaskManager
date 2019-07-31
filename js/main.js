@@ -8,8 +8,8 @@ window.addEventListener("load", function () {
 class AssignPrototype{
     constructor() {
         //variables to hold API URL info
-        var apiURL = "https://triangular-cabbage.glitch.me/api/";
-        var accessToken = "?accessToken=5b1064585f4ab8706d275f90";
+        const apiURL = "https://triangular-cabbage.glitch.me/api/";
+        const accessToken = "?accessToken=5b1064585f4ab8706d275f90";
 
         //variable to hold the DOM list display
         const listDisplay = document.querySelector('#listdisplay');
@@ -87,10 +87,9 @@ class AssignPrototype{
         //function to post a new task
         function postPutTask(event) {
             event.preventDefault();
-            var target = event.target;
+            let target = event.target;
             let pageForm = document.querySelector('form');
-            let required = pageForm.querySelector('#title');
-            var disable = target.classList.contains('disabled');
+            const disable = target.classList.contains('disabled');
 
             if(disable===false){
                 let title = pageForm.querySelector('input[name=title]').value;
