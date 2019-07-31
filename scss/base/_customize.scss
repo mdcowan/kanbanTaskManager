@@ -26,15 +26,15 @@
 
 #customtheme1{
   background-color: $primary-color-custom1;
-  @include modalButton;
+  @extend %modalButton;
 }
 #customtheme2{
   background-color: $primary-color-custom2;
-  @include modalButton;
+  @extend %modalButton;
 }
 #default {
   background-color: $primary-color;
-  @include modalButton;
+  @extend %modalButton;
 }
 
 /* CUSTOMIZATION LAYOUT

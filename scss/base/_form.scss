@@ -3,24 +3,44 @@
 ================================================== */
 
 form{
-  input, textarea{
-    box-shadow:
-            inset 0 0 8px $shadow-color,
+  @include mq(small){
+    max-width: 450px;
+  }
+  @include mq(medium){
+    max-width: 940px;
+  }
+  @include mq(large){
+    max-width: 1200px;
+  }
+  margin: 2rem auto;
+
+  p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .2rem 0;
+
+    input, textarea{
+      box-shadow:
+              inset 0 0 8px $shadow-color,
+    }
+
+    input:valid{
+      border: none;
+    }
+
+    input:invalid{
+      border: .2rem solid $accent-color;
+    }
+
+    input:required{
+      border: .2rem solid $primary-color;
+    }
   }
 
-  input:valid{
-    border: none;
-  }
-
-  input:invalid{
-    border: .2rem solid $accent-color;
-  }
-
-  input:required{
-    border: .2rem solid $primary-color;
+  .alert{
+    color: $dk-primary-color;
   }
 }
 
-.alert{
-  color: $dk-primary-color;
-}
+
