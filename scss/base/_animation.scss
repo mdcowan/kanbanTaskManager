@@ -13,3 +13,32 @@ li:hover{
 
 }
 
+section {
+  button{
+    transition-property: background-color;
+    transition-duration: 1s;
+    background-color: $shadow-color;
+    box-shadow:
+            inset 0 0 .8rem $shadow-color,
+  }
+}
+
+section {
+  button:hover{
+    background-color: $background-color;
+  }
+}
+
+.formCreate{
+  animation: shift .25s ease-in;
+}
+
+@keyframes shift{
+  0%{
+    transform: translate(-20rem);
+  }
+  100%{
+    transform: translate(0);
+  }
+}
+

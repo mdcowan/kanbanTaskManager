@@ -18,7 +18,7 @@ For the first milestone, the project’s development workflow will need to be im
 - [x] Milestone 2:
 For the second milestone: adapt static HTML into a dynamic application that pulls data in from an API, establish functions for CRUD operations, and build out the form to handle the CRUD operations.
 
-- [ ] Milestone 3:
+- [x] Milestone 3:
 For the third milestone: focus is on accessibility to ensure your application is accessible to assistive technologies, implement form validation, implement user customization, and connect the form actions to the API.
 
 - [ ] Milestone 4:
