@@ -1,0 +1,15 @@
+/* ANIMATIONS
+==================================================
+================================================== */
+
+li{
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: $background-color;
+}
+
+li:hover{
+  background-color: $shadow-color;
+
+}
+

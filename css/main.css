@@ -7,7 +7,7 @@
 /* SCSS PLACEHOLDERS
 ==================================================
 ================================================== */
-.wrapper button {
+.wrapper section button {
   border-radius: .4rem;
   height: 2rem; }
 
@@ -186,10 +186,10 @@ a {
       display: grid;
       grid-template-columns: 1fr 8rem;
       grid-gap: 1rem; }
-  .wrapper li {
-    margin: 2rem 0;
-    padding: 1rem 1.5rem;
-    box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }
+    .wrapper section li {
+      margin: 2rem 0;
+      padding: 1rem 1.5rem;
+      box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }
 
 /* FORM LAYOUT
 ==================================================
@@ -290,3 +290,14 @@ form {
 
 .custom2 .alert {
   color: #7B1FA2; }
+
+/* ANIMATIONS
+==================================================
+================================================== */
+li {
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: #FFFFFF; }
+
+li:hover {
+  background-color: #E8E8E8; }
