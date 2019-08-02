@@ -86,10 +86,12 @@ class AssignPrototype{
 
         //function to post a new task
         function postPutTask(event) {
+            console.log("Post/Put Triggered")
             event.preventDefault();
             let target = event.target;
             let pageForm = document.querySelector('form');
             const disable = target.classList.contains('disabled');
+            console.log(disable);
 
             if(disable===false){
                 let title = pageForm.querySelector('input[name=title]').value;
@@ -160,7 +162,7 @@ class AssignPrototype{
             let pageForm = document.querySelector('form');
             let required = pageForm.querySelector('input[name=title]');
             let submit = pageForm.querySelector('button');
-
+            console.log("Validity State: " + required.validity.valid);
             //allow submit
             let alertText = pageForm.parentElement.querySelector('p');
             if (required.validity.valid === true){
@@ -237,6 +239,7 @@ class AssignPrototype{
             pageForm.querySelector('input[id=description]').value = description;
             pageForm.querySelector('input[id=duedate]').value = dueDate;
             pageForm.querySelector('button').innerHTML = "Update";
+            pageForm.querySelector('input[id=title]').focus();
         }
 
         getLists();
