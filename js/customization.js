@@ -63,7 +63,14 @@ function themeChange(choice){
             break;
     }
 
-    localStorage.setItem('customColor', JSON.stringify(data));
+    try{
+        if(localStorage in window){
+            localStorage.setItem('customColor', JSON.stringify(data));
+        }
+    }
+    catch{
+        console.log("Local Storage not available./nColor settings not saved for later use.");
+    }
     themechange.style.display = "none";
 }
 
@@ -71,9 +78,16 @@ btn.addEventListener('click', openModal);
 window.addEventListener('click', closeModal);
 
 function loadCustomColor(){
-    let customColor = JSON.parse(localStorage.getItem('customColor'));
-    if(customColor){
-        themeChange(customColor.colorClass);
+    try{
+        if(localStorage in window){
+            let customColor = JSON.parse(localStorage.getItem('customColor'));
+            if(customColor){
+                themeChange(customColor.colorClass);
+            }
+        }
+    }
+    catch{
+        console.log("Local Storage not available./nColor settings not saved for later use.");
     }
 }
 
