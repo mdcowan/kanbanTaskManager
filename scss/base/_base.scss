@@ -116,10 +116,6 @@ h1, .wrapper{
       grid-gap: 1rem;
     }
 
-    button{
-      @extend %button;
-    }
-
     li{
       margin: 2rem 0;
       padding: 1rem 1.5rem;
@@ -127,7 +123,9 @@ h1, .wrapper{
     }
   }
 
-
+  button{
+    @extend %button;
+  }
 
 }
 

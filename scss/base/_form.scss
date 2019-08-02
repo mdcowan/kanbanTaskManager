@@ -38,6 +38,16 @@ form{
     }
   }
 
+  p:last-of-type{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    button{
+      padding: 0 2rem;
+    }
+  }
+
   .alert{
     color: $dk-primary-color;
   }
