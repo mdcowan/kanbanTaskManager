@@ -4,4 +4,16 @@
 %button{
   border-radius: .4rem;
   height: 2rem;
+
+}
+
+%modalButton{
+  padding: 1.8rem;
+  margin: 1rem;
+  border-radius: 50%;
+  height: 1.8rem;
+  width: 1.8rem;
+  text-indent: -9999px;
+  white-space: nowrap;
+  overflow: hidden;
 }

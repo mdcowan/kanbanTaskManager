@@ -11,6 +11,16 @@
   border-radius: .4rem;
   height: 2rem; }
 
+#customtheme1, #customtheme2, #default {
+  padding: 1.8rem;
+  margin: 1rem;
+  border-radius: 50%;
+  height: 1.8rem;
+  width: 1.8rem;
+  text-indent: -9999px;
+  white-space: nowrap;
+  overflow: hidden; }
+
 /* CSS RESET
 ==================================================
 ================================================== */
@@ -95,7 +105,12 @@ header {
     background-position: center;
     padding: 1.8rem;
     margin: 0;
-    border-radius: 50%; }
+    border-radius: 50%;
+    height: 1.8rem;
+    width: 1.8rem;
+    text-indent: -9999px;
+    white-space: nowrap;
+    overflow: hidden; }
 
 /* TYPOGRAPHY ====================================== */
 h1 {
@@ -171,28 +186,46 @@ a {
       display: grid;
       grid-template-columns: 1fr 8rem;
       grid-gap: 1rem; }
-  .wrapper li {
-    margin: 2rem 0;
-    padding: 1rem 1.5rem;
-    box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }
+    .wrapper section li {
+      margin: 2rem 0;
+      padding: 1rem 1.5rem;
+      box-shadow: 0px 0px 0.8rem 0.1rem #E8E8E8; }
 
 /* FORM LAYOUT
 ==================================================
 ================================================== */
-form input, form textarea {
-  box-shadow: inset 0 0 8px #E8E8E8; }
-
-form input:valid {
-  border: none; }
-
-form input:invalid {
-  border: 0.2rem solid #FFEB3B; }
-
-form input:required {
-  border: 0.2rem solid #00BCD4; }
-
-.alert {
-  color: #0097A7; }
+form {
+  margin: 2rem auto; }
+  @media (max-width: 830px) {
+    form {
+      max-width: 450px; } }
+  @media (min-width: 831px) and (max-width: 1040px) {
+    form {
+      max-width: 940px; } }
+  @media (min-width: 1040px) {
+    form {
+      max-width: 1200px; } }
+  form p {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .2rem 0; }
+    form p input, form p textarea {
+      box-shadow: inset 0 0 8px #E8E8E8; }
+    form p input:valid {
+      border: none; }
+    form p input:invalid {
+      border: 0.2rem solid #FFEB3B; }
+    form p input:required {
+      border: 0.2rem solid #00BCD4; }
+  form p:last-of-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+    form p:last-of-type button {
+      padding: 0 2rem; }
+  form .alert {
+    color: #0097A7; }
 
 /* MODAL LAYOUT
 ==================================================
@@ -206,22 +239,23 @@ form input:required {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 188, 212, 0.5); }
+  background-color: rgba(232, 232, 232, 0.9); }
 
 .modal {
   background-color: #FFFFFF;
   margin: auto;
   padding: 4rem 2rem;
-  border: 1px solid #00BCD4;
-  width: 50%; }
-  .modal button {
-    padding: 1rem;
-    margin: 1rem; }
+  border: 1px solid #E8E8E8;
+  box-shadow: 0px 0px 1.8rem 0.1rem #E8E8E8;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
 
-#custom1 {
+#customtheme1 {
   background-color: #F44336; }
 
-#custom2 {
+#customtheme2 {
   background-color: #9C27B0; }
 
 #default {
@@ -263,3 +297,32 @@ form input:required {
 
 .custom2 .alert {
   color: #7B1FA2; }
+
+/* ANIMATIONS
+==================================================
+================================================== */
+li {
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: #FFFFFF; }
+
+li:hover {
+  background-color: #E8E8E8; }
+
+section button {
+  transition-property: background-color;
+  transition-duration: 1s;
+  background-color: #E8E8E8;
+  box-shadow: inset 0 0 0.8rem #E8E8E8; }
+
+section button:hover {
+  background-color: #FFFFFF; }
+
+.formCreate {
+  animation: shift .25s ease-in; }
+
+@keyframes shift {
+  0% {
+    transform: translate(-20rem); }
+  100% {
+    transform: translate(0); } }

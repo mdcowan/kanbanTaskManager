@@ -8,8 +8,8 @@ window.addEventListener("load", function () {
 class AssignPrototype{
     constructor() {
         //variables to hold API URL info
-        var apiURL = "https://triangular-cabbage.glitch.me/api/";
-        var accessToken = "?accessToken=5b1064585f4ab8706d275f90";
+        const apiURL = "https://triangular-cabbage.glitch.me/api/";
+        const accessToken = "?accessToken=5b1064585f4ab8706d275f90";
 
         //variable to hold the DOM list display
         const listDisplay = document.querySelector('#listdisplay');
@@ -46,7 +46,7 @@ class AssignPrototype{
         function createList(data){
             const sectionTemplate = document.querySelector('#listTemplate');
             let cloneSection = document.importNode(sectionTemplate.content, true);
-            cloneSection.querySelector('section').id = data.id;
+            cloneSection.querySelector('section').dataset.listid = data.id;
             cloneSection.querySelector('h2').innerHTML = data.title;
 
             let targetList = cloneSection.querySelector('ul');
@@ -58,7 +58,7 @@ class AssignPrototype{
                 data.items.forEach(element =>{
                     let cloneTask = document.importNode(taskTemplate.content, true);
 
-                    cloneTask.querySelector('li').id = element.id;
+                    cloneTask.querySelector('li').dataset.taskid = element.id;
                     cloneTask.querySelector('h3').innerHTML = element.title;
                     cloneTask.querySelector('p').innerHTML = element.description;
                     cloneTask.querySelector('time').innerHTML = element.dueDate;
@@ -86,15 +86,16 @@ class AssignPrototype{
 
         //function to post a new task
         function postPutTask(event) {
+            console.log("Post/Put Triggered")
             event.preventDefault();
-            var target = event.target;
+            let target = event.target;
             let pageForm = document.querySelector('form');
-            let required = pageForm.querySelector('#title');
-            var disable = target.classList.contains('disabled');
+            const disable = target.classList.contains('disabled');
+            console.log(disable);
 
             if(disable===false){
                 let title = pageForm.querySelector('input[name=title]').value;
-                let listId = target.parentElement.id;
+                let listId = target.parentElement.dataset.listid;
                 let description;
                 if (pageForm.querySelector('input[id=description]').value){
                     description = pageForm.querySelector('input[id=description]').value;
@@ -110,7 +111,7 @@ class AssignPrototype{
                     dueDate = null;
                 }
 
-                let taskID = target.parentElement.querySelector('h2').id;
+                let taskID = target.parentElement.querySelector('h2').dataset.taskid;
 
                 let newTask;
                 let queryURL;
@@ -161,7 +162,7 @@ class AssignPrototype{
             let pageForm = document.querySelector('form');
             let required = pageForm.querySelector('input[name=title]');
             let submit = pageForm.querySelector('button');
-
+            console.log("Validity State: " + required.validity.valid);
             //allow submit
             let alertText = pageForm.parentElement.querySelector('p');
             if (required.validity.valid === true){
@@ -181,7 +182,7 @@ class AssignPrototype{
 
         //add task button event handler
         function addTask(event){
-            let listID = event.target.parentElement.parentElement.id;
+            let listID = event.target.parentElement.parentElement.dataset.listid;
             //create the form
             let formTitle = "Add Task";
             createForm(formTitle, listID);
@@ -196,7 +197,7 @@ class AssignPrototype{
 
             //variables to hold the new form
             let pageForm = document.querySelector('form');
-            pageForm.id = listID;
+            pageForm.dataset.listid = listID;
             let title = pageForm.querySelector('h2');
             title.innerHTML = formTitle;
 
@@ -220,17 +221,17 @@ class AssignPrototype{
 
             //Record the data from the task that was clicked
             let task = event.currentTarget;
-            let taskID = task.id;
+            let taskID = task.dataset.taskid;
             let list = task.parentElement.parentElement;
             let formTitle = list.querySelector('h2').innerHTML;
             let title = task.querySelector('h3').innerHTML;
             let description = task.querySelector('p').innerHTML;
             let dueDate = task.querySelector('time').innerHTML;
-            let listID = list.id;
+            let listID = list.dataset.listid;
 
             //create the form with populated data
             let pageForm = createForm(formTitle, listID);
-            pageForm.querySelector('h2').id = taskID;
+            pageForm.querySelector('h2').dataset.taskid = taskID;
             pageForm.querySelector('p').innerHTML = "";
             pageForm.querySelector('#cancel').innerHTML = "Close";
             pageForm.querySelector('label').innerHTML = "Title";
@@ -238,6 +239,7 @@ class AssignPrototype{
             pageForm.querySelector('input[id=description]').value = description;
             pageForm.querySelector('input[id=duedate]').value = dueDate;
             pageForm.querySelector('button').innerHTML = "Update";
+            pageForm.querySelector('input[id=title]').focus();
         }
 
         getLists();

@@ -2,16 +2,17 @@
 const page = document.querySelector('body');
 const themechange = page.querySelector("#themechange");
 const btn = page.querySelector('header > button');
-const theme1Btn = page.querySelector('#custom1');
-const theme2Btn = page.querySelector('#custom2');
+const theme1Btn = page.querySelector('#customtheme1');
+const theme2Btn = page.querySelector('#customtheme2');
 const theme3Btn = page.querySelector('#default');
+
+theme1Btn.addEventListener('click', getTheme);
+theme2Btn.addEventListener('click', getTheme);
+theme3Btn.addEventListener('click', getTheme);
 
 // function to open the modal window
 function openModal(){
     themechange.style.display = "block";
-    theme1Btn.addEventListener('click',changeToTheme1);
-    theme2Btn.addEventListener('click', changeToTheme2);
-    theme3Btn.addEventListener('click', changeDefault);
 }
 
 // function to close the modal window
@@ -21,47 +22,54 @@ function closeModal(event){
     }
 }
 
-function changeToTheme1(){
-    if(localStorage.getItem('customColor')){
-        localStorage.removeItem('customColor');
-    }
-    let data = {
-        colorClass: "1"
-    };
-    localStorage.setItem('customColor', JSON.stringify(data));
-
-    page.classList.add('custom1');
-    if(page.classList.contains('custom2')){
-        page.classList.remove('custom2');
-    }
-    themechange.style.display = "none";
+function getTheme(event){
+    let choice = event.target.id;
+    themeChange(choice);
 }
 
-function changeToTheme2(){
+function themeChange(choice){
     if(localStorage.getItem('customColor')){
         localStorage.removeItem('customColor');
     }
-    let data = {
-        colorClass: "2"
-    };
-    localStorage.setItem('customColor', JSON.stringify(data));
+    let data;
 
-    page.classList.add('custom2');
-    if(page.classList.contains('custom1')){
-        page.classList.remove('custom1');
-    }
-    themechange.style.display = "none";
-}
 
-function changeDefault(){
-    if(localStorage.getItem('customColor')){
-        localStorage.removeItem('customColor');
+    switch (choice){
+        case "customtheme1":
+            data = {
+                colorClass: "customtheme1"
+            };
+            page.classList.add('custom1');
+            if(page.classList.contains('custom2')){
+                page.classList.remove('custom2');
+            }
+            break;
+        case "customtheme2":
+            data = {
+                colorClass: "customtheme2"
+            };
+            page.classList.add('custom2');
+            if(page.classList.contains('custom1')){
+                page.classList.remove('custom1');
+            }
+            break;
+        case "default":
+            if(page.classList.contains('custom1')){
+                page.classList.remove('custom1');
+            }
+            if(page.classList.contains('custom2')){
+                page.classList.remove('custom2');
+            }
+            break;
     }
-    if(page.classList.contains('custom1')){
-        page.classList.remove('custom1');
+
+    try{
+        if(localStorage in window){
+            localStorage.setItem('customColor', JSON.stringify(data));
+        }
     }
-    if(page.classList.contains('custom2')){
-        page.classList.remove('custom2');
+    catch{
+        console.log("Local Storage not available./nColor settings not saved for later use.");
     }
     themechange.style.display = "none";
 }
@@ -70,17 +78,16 @@ btn.addEventListener('click', openModal);
 window.addEventListener('click', closeModal);
 
 function loadCustomColor(){
-    let customColor = JSON.parse(localStorage.getItem('customColor'));
-    console.log(customColor);
-    if(customColor){
-        switch(customColor.colorClass){
-            case '1':
-                changeToTheme1();
-                break;
-            case '2':
-                changeToTheme2();
-                break;
+    try{
+        if(localStorage in window){
+            let customColor = JSON.parse(localStorage.getItem('customColor'));
+            if(customColor){
+                themeChange(customColor.colorClass);
+            }
         }
+    }
+    catch{
+        console.log("Local Storage not available./nColor settings not saved for later use.");
     }
 }
 
